@@ -29,7 +29,6 @@ end
 
 
 game:GetService("Players").PlayerAdded:Connect(function(plr)
-	wait(2)
 	spawn(function()
 		RemovalProcess(plr)
 	end)
