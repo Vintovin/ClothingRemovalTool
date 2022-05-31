@@ -11,13 +11,23 @@ Layered Clothing Removal Tool
 This code was whipped up by vinto himself
 31/05/2022
 
-https://github.com/Vintovin/ClothingRemovalTool
 EXCEL#8402
 ]]--
 
 
 
-local ClothingRemover = require(script.Remove3DClothing)
+ClothingRemover = require(script.Remove3DClothing)
+StaffGroupID = 0
+
+
+local function isStaff(plr)
+	if plr:IsInGroup(StaffGroupID) then
+		return(true)
+	else
+		return(false)
+	end
+end
+
 
 local function RemovalProcess(plr)
 	repeat 
@@ -29,14 +39,17 @@ end
 
 
 game:GetService("Players").PlayerAdded:Connect(function(plr)
-	spawn(function()
-		RemovalProcess(plr)
-	end)
-	
+	if isStaff(plr) == true then
+		spawn(function()
+			RemovalProcess(plr)
+		end)
+	end
 end)
 
 for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-	spawn(function()
-		RemovalProcess(v)
-	end)
+	if isStaff(v) == true then
+		spawn(function()
+			RemovalProcess(v)
+		end)
+	end	
 end
